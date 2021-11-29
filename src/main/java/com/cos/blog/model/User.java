@@ -32,7 +32,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //프로젝트에서 연결된 DB의 넘버링 전략을 따라간다.
 	private int id;  //시퀀스, auto_increment
 	
-	@Column(nullable = false, length =30)
+	@Column(nullable = false, length =30, unique = true)
 	private String username;   //아이디
 	
 	@Column(nullable = false, length =100) // 1234 => 해쉬(비밀번호 암호화)
@@ -46,6 +46,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private RoleType role; //Enum을 쓰는게 좋다. // Admin,User,Manager
 	
+	//내가 직접 시간을 넣으려면 Timestamp.valueOf(LocalDateTime.now())
 	@CreationTimestamp //시간이 자동입력
 	private Timestamp createDate;	
 }
