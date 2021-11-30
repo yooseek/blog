@@ -9,8 +9,8 @@ server:
 spring:
   mvc: 
     view:
-      prefix: /WEB-INF/views/   # 리턴값 앞에 붙여주는
-      suffix: .jsp              # 리턴값 뒤에 붙여주는
+      prefix: /WEB-INF/views/   # controller 리턴값 앞에 붙여주는 RESTController x
+      suffix: .jsp              # controller 리턴값 뒤에 붙여주는
   
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,7 +22,7 @@ spring:
       password: 7235
   
   jpa:
-    open-in-view: true
+    open-in-view: true # lazy전략을 사용할 수 있게 한다. controller까지 영속성컨텍스트를 열어두는 전략
     hibernate:
       ddl-auto: update   # create : 실행할때마다 테이블 생성 / 나중에는 업데이트로 바꿔야함
       naming:
