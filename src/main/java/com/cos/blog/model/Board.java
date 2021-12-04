@@ -40,7 +40,7 @@ public class Board {
 	private String content; //섬머노트 라이브러리 사용할꺼 : <html> 태그가 섞여서 디자인이 됨
 	// 그래서 용량이 대용량이 필요함
 	
-	@ColumnDefault("0")
+	//@ColumnDefault("0")
 	private int count; // 조회수
 	
 	@ManyToOne(fetch = FetchType.EAGER) //Many = board , one = user /한명의 유저는 여러개의 보드를 쓸수있다.
