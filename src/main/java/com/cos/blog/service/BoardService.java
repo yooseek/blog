@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repogitory.BoardRepository;
+import com.cos.blog.repogitory.ReplyRepository;
 import com.cos.blog.repogitory.UserRepository;
 
 @Service //스프링이 컴포넌트 스캔을 해서 Bean에 등록해줌
@@ -20,6 +22,9 @@ public class BoardService {
 	
 	@Autowired
 	private BoardRepository boardRepository;
+	
+	@Autowired
+	private ReplyRepository replyRepository;
 	
 	@Transactional
 	public void 글쓰기(Board board,User user) { //title, content
@@ -36,7 +41,6 @@ public class BoardService {
 		return boardRepository.findById(id).orElseThrow(()->{
 			return new IllegalArgumentException("글 상세보기 실패 : 아이디를 찾을 수 없습니다.");
 		});
-
 	}
 	@Transactional
 	public void 삭제하기(int id) {
@@ -51,5 +55,18 @@ public class BoardService {
 		// 해당 정보를 바꾸고 함수를 종료하면 트랜잭션이 종료된다. 이때 더티체킹 발생 - 자동업데이트됨
 		board.setTitle(requestboard.getTitle());
 		board.setContent(requestboard.getContent());		
+	}
+	
+	@Transactional
+	public void 댓글쓰기(User user,int boardId,Reply requestReply) { //title, content
+		
+		Board board = boardRepository.findById(boardId).orElseThrow(()->{
+			return new IllegalArgumentException("댓글 쓰기 실패 : 게시글을 찾을 수 없습니다.");
+		});
+		
+		requestReply.setUser(user);
+		requestReply.setBoard(board);
+		replyRepository.save(requestReply);
+		
 	}
 }

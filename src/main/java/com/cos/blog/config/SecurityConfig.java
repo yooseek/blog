@@ -3,6 +3,7 @@ package com.cos.blog.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,6 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	private PrincipalDetailService principalDetailService;
 	
 	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
+	@Bean
 	public BCryptPasswordEncoder encodePWD() {
 		return new BCryptPasswordEncoder();  //ioc가 되면서 이 값을 스프링이 관리한다.
 	}
@@ -38,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 		.csrf().disable()  //csrf 토큰 비활성화(테스트할 때 걸어두는게 좋음)
 		.authorizeRequests()
-			.antMatchers("/","/auth/**","/js/**","/css/**","/img/**","/dummy/**")      //auth쪽으로 들어오는건 누구나 들어올수 있다.
+			.antMatchers("/","/auth/**","/js/**","/css/**","/image/**","/dummy/**")      //auth쪽으로 들어오는건 누구나 들어올수 있다.
 			.permitAll()				
 			.anyRequest()				//이 외에 어떤 리퀘스트는
 			.authenticated()			// 인증이 되야됭

@@ -28,9 +28,11 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl #변수명 그대로 테이블에 이름 삽입전략
       use-new-id-generator-mappings: false #jpa가 사용하는 기본 넘버링을 따라가지않는다.
-    show-sql: true  # 콘솔창에 sql 보여줌
+    show-sql: false  # 콘솔창에 sql 안보여줌
     properties:
       hibernate.format_sql: true  # 콘솔에 sql 찍을때 줄바꿈해줌
   jackson:
     serialization:
       fail-on-empty-beans: false
+cos:              ## 카카오 유저들 비밀번호
+  key: kakaoPWD
