@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.blog.dto.ReplySaveRequestDTO;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.Reply;
 import com.cos.blog.model.RoleType;
@@ -19,6 +20,9 @@ import com.cos.blog.repogitory.UserRepository;
 
 @Service //스프링이 컴포넌트 스캔을 해서 Bean에 등록해줌
 public class BoardService {
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired
 	private BoardRepository boardRepository;
@@ -58,15 +62,27 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public void 댓글쓰기(User user,int boardId,Reply requestReply) { //title, content
+	public void 댓글쓰기(ReplySaveRequestDTO requeReplySaveRequestDTO) { //title, content
 		
-		Board board = boardRepository.findById(boardId).orElseThrow(()->{
+		/*
+		User user = userRepository.findById(requeReplySaveRequestDTO.getUserId()).orElseThrow(()->{
+			return new IllegalArgumentException("댓글 쓰기 실패 : 유저를 찾을 수 없습니다.");
+		});
+		
+		Board board = boardRepository.findById(requeReplySaveRequestDTO.getBoardId()).orElseThrow(()->{
 			return new IllegalArgumentException("댓글 쓰기 실패 : 게시글을 찾을 수 없습니다.");
 		});
 		
-		requestReply.setUser(user);
-		requestReply.setBoard(board);
-		replyRepository.save(requestReply);
+		Reply reply = new Reply();
+		reply.update(user, board,requeReplySaveRequestDTO.getContent());
 		
+		replyRepository.save(reply);
+		*/
+		replyRepository.mSave(requeReplySaveRequestDTO.getUserId(),requeReplySaveRequestDTO.getBoardId(),requeReplySaveRequestDTO.getContent());
+		
+	}
+	@Transactional
+	public void 댓글삭제(int replyId) {
+		replyRepository.deleteById(replyId);
 	}
 }
