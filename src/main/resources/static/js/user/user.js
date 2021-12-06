@@ -28,8 +28,12 @@ let index = {
 			contentType: "application/json; charset=utf-8" //보내는 바디 데이터가 무슨 타입인지(MIME)
 			//dataType: "json"   //응답 데이터 타입(기본은 String) json형식으로 받으면 스프링이 js오브젝트로 변환시켜준다.
 		}).done(function(resp){
-			alert("회원가입이 완료되었습니다.");
-			console.log(resp);
+			if(resp.status != 200){
+				alert("회원가입에 실패하였습니다.")
+			}else{
+				alert("회원가입이 완료되었습니다.");
+				console.log(resp);
+			}
 			location.href ="/";
 		}).fail(function(error){
 			alert(JSON.stringify(error));

@@ -3,6 +3,7 @@ package com.cos.blog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,7 +52,7 @@ public class Board {
 	private User user; //DB는 오브젝트 저장할수 없으니 FK 사용, 자바는 오브젝트를 저장할수있다.
 	//orm 이 알아서 포링키 설정해줌
 	
-	@OneToMany(mappedBy = "board",fetch = FetchType.EAGER)  //mappedby는 연관관계의 주인이 아니다.(포링키가 아니다.)
+	@OneToMany(mappedBy = "board",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)  //mappedby는 연관관계의 주인이 아니다.(포링키가 아니다.)
 	@JsonIgnoreProperties({"board"})
 	@OrderBy("id desc")	//아이디 내림차순
 	private List<Reply> replys;  //데이터테이블에는 안만들고 연관된 reply 객체들만 가져온다.
