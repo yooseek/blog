@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.blog.dto.ResponseDto;
 
-@ControllerAdvice
+@ControllerAdvice // Exception 낚아채서 관리하기
 @RestController
 public class GlobalExceptionHandler {
 	
