@@ -32,7 +32,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 public class Board {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;

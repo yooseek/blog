@@ -48,12 +48,12 @@ public class BoardApiController {
 	@PostMapping("/api/board/{boardId}/reply")
 	public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDTO replySaveRequestDTO) {
 		boardService.댓글쓰기(replySaveRequestDTO);
-		return new ResponseDto<Integer>(HttpStatus.OK.value(),1); //자바 오브젝트를 Json으로 변환해서 리턴(Jackson)
+		return new ResponseDto<Integer>(HttpStatus.OK.value(),1); 
 	}
 	@DeleteMapping("/api/board/{boardId}/reply/{replyId}")
 	public ResponseDto<Integer> replyDelete(@PathVariable int replyId) {
 		boardService.댓글삭제(replyId);
-		return new ResponseDto<Integer>(HttpStatus.OK.value(),1); //자바 오브젝트를 Json으로 변환해서 리턴(Jackson)
+		return new ResponseDto<Integer>(HttpStatus.OK.value(),1); 
 	}
 
 }
